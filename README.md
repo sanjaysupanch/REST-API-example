@@ -61,10 +61,10 @@ The REST API to the assignment app is described below.
 
        {"count":6,"next":"http://127.0.0.1:8000/api/story/?limit=5&offset=5","previous":null,"results":[
        {"id":1,"tags":["s","san"],"title":" my name is  san","description":"kumar","body":" jfakjf jadksl flja","published":false,"timetoreads":               
-       {"id":1,"hours":0,"mins":0,"secs":1}},{"id":2,"tags":     [],"title":"dd","description":"d","body":"d","published":false,"timetoreads":
-       {"id":2,"hours":0,"mins":0,"secs":1}},{"id":3,"tags":[],"title":"d","description":"d","body":"d","published":false,"timetoreads":
+       {"id":1,"hours":0,"mins":0,"secs":1}},{"id":2,"tags":["JAVA", "C"],"title":"dd","description":"d","body":"d","published":false,"timetoreads":
+       {"id":2,"hours":0,"mins":0,"secs":1}},{"id":3,"tags":["JAVA", "C"],"title":"d","description":"d","body":"d","published":false,"timetoreads":
        {"id":3,"hours":0,"mins":0,"secs":1}},{"id":4,"tags":[],"title":"d","description":"d","body":"d","published":false,"timetoreads":
-       {"id":4,"hours":0,"mins":0,"secs":1}},{"id":5,"tags":[],"title":"d","description":"d","body":"d","published":false,"timetoreads":
+       {"id":4,"hours":0,"mins":0,"secs":1}},{"id":5,"tags":["JAVA", "C"],"title":"d","description":"d","body":"d","published":false,"timetoreads":
       
 
 
