@@ -1,350 +1,203 @@
-# REST API example applications
+# REST API example assignment
 
-This is a bare-bones example of a Sinatra application providing a REST
-API to a DataMapper-backed model.
-
-The entire application is contained within the `app.rb` file.
-
-`config.ru` is a minimal Rack configuration for unicorn.
-
-`run-tests.sh` runs a simplistic test and generates the API
-documentation below.
-
-It uses `run-curl-tests.rb` which runs each command defined in
-`commands.yml`.
 
 ## Install
 
-    bundle install
+    pip install -r requirements.txt
 
 ## Run the app
 
-    unicorn -p 7000
+    port -p 8000
 
-## Run the tests
-
-    ./run-tests.sh
 
 # REST API
 
-The REST API to the example app is described below.
+The REST API to the assignment app is described below.
 
-## Get list of Things
+## Login
+   `Request`
+   
+    curl -i POST -H "Content-Type: application/x-www-form-urlencoded" -d 'username=s&password=s' 'http://127.0.0.1:8000/api/login/'
+   
+   `Response`
+   
+    HTTP/1.1 200 OK
+    Date: Mon, 26 Oct 2020 12:23:59 GMT
+    Server: WSGIServer/0.2 CPython/3.8.5
+    Content-Type: application/json
+    Vary: Accept, Cookie
+    Allow: POST, OPTIONS
+    X-Frame-Options: DENY
+    Content-Length: 50
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
+    Set-Cookie:  csrftoken=QsVPCvfaErIvlQiJfq8z4eD4f0xICmFYlPHO2jXVHoWahThb1OZowcJVOUPqDdQI; expires=Mon, 25 Oct 2021 12:23:59 GMT; Max-Age=31449600; Path=/;         SameSite=Lax
+    Set-Cookie:  sessionid=wwn9y0koymbz8ejl7qqxboypjrx1y2b2; expires=Mon, 09 Nov 2020 12:23:59 GMT; HttpOnly; Max-Age=1209600; Path=/; SameSite=Lax
+
+    {"key":"b2487a31410fc0bc4c72c5889124621a140fdbbe"}
+    
+
+## GET List of story
 
 ### Request
 
-`GET /thing/`
+`GET /api/story/`
 
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
+    curl -i -X GET -H "Authorization: Token b2487a31410fc0bc4c72c5889124621a140fdbbe" -H "Content-Type: application/x-www-form-urlencoded"
+    'http://127.0.0.1:8000/api/story/'
 
 ### Response
 
     HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
+    Date: Mon, 26 Oct 2020 13:38:02 GMT
+    Server: WSGIServer/0.2 CPython/3.8.5
     Content-Type: application/json
-    Content-Length: 2
+    Vary: Accept
+    Allow: GET, HEAD, OPTIONS
+    X-Frame-Options: DENY
+    Content-Length: 789
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
 
-    []
+       {"count":6,"next":"http://127.0.0.1:8000/api/story/?limit=5&offset=5","previous":null,"results":[
+       {"id":1,"tags":["s","san"],"title":" my name is  san","description":"kumar","body":" jfakjf jadksl flja","published":false,"timetoreads":               
+       {"id":1,"hours":0,"mins":0,"secs":1}},{"id":2,"tags":     [],"title":"dd","description":"d","body":"d","published":false,"timetoreads":
+       {"id":2,"hours":0,"mins":0,"secs":1}},{"id":3,"tags":[],"title":"d","description":"d","body":"d","published":false,"timetoreads":
+       {"id":3,"hours":0,"mins":0,"secs":1}},{"id":4,"tags":[],"title":"d","description":"d","body":"d","published":false,"timetoreads":
+       {"id":4,"hours":0,"mins":0,"secs":1}},{"id":5,"tags":[],"title":"d","description":"d","body":"d","published":false,"timetoreads":
+      
 
-## Create a new Thing
+
+## Create Story
 
 ### Request
 
-`POST /thing/`
+`POST /api/post/`
 
-    curl -i -H 'Accept: application/json' -d 'name=Foo&status=new' http://localhost:7000/thing
+    curl -i -X POST -H "Authorization: Token b2487a31410fc0bc4c72c5889124621a140fdbbe" -H "Content-Type: application/x-www-form-urlencoded" -d 
+    '{"tags":["JAVA","C"],"title":"Programming language","description":"xyz","body":"You hav to belive"} ' 'http://127.0.0.1:8000/api/post/'
 
 ### Response
 
     HTTP/1.1 201 Created
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Date: Mon, 26 Oct 2020 13:38:02 GMT
+    Server: WSGIServer/0.2 CPython/3.8.5
     Status: 201 Created
     Connection: close
     Content-Type: application/json
-    Location: /thing/1
-    Content-Length: 36
+    Location: /api/story/7
+    {"id":7, "tags":["JAVA","C"],"title":"Programming language","description":"xyz","body":"You hav to belive"}
 
-    {"id":1,"name":"Foo","status":"new"}
-
-## Get a specific Thing
+## GET for UPDATE story
 
 ### Request
 
-`GET /thing/id`
+`GET /api/story/id/`
 
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
+    curl -i -X GET -H "Authorization: Token b2487a31410fc0bc4c72c5889124621a140fdbbe" -H "Content-Type: application/x-www-form-urlencoded"
+    'http://127.0.0.1:8000/api/story/7/'
 
 ### Response
 
     HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
+    Date: Mon, 26 Oct 2020 14:01:19 GMT
+    Server: WSGIServer/0.2 CPython/3.8.5
     Content-Type: application/json
-    Content-Length: 36
+    Vary: Accept
+    Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+    X-Frame-Options: DENY
+    Content-Length: 178
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
 
-    {"id":1,"name":"Foo","status":"new"}
+    {"id":7,"tags":["JAVA","C"],"title":"Programming language","description":"xyz","body":"You hav to belive","published":false,"timetoreads":
+    {"id":7,"hours":0,"mins":0,"secs":2}}
 
-## Get a non-existent Thing
+## UPDATE story
 
 ### Request
 
-`GET /thing/id`
+`PUT /api/story/id/`
 
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/9999
+    curl -i -X PUT -H "Authorization: Token b2487a31410fc0bc4c72c5889124621a140fdbbe" -H "Content-Type: application/x-www-form-urlencoded" -d ' {"id":7,"tags":
+    ["JAVA","C"],"title":"Programming language","description":"xyz","body":"You hav to belive","published":false,"timetoreads":
+    {"id":7,"hours":0,"mins":0,"secs":3}} ' 'http://127.0.0.1:8000/api/story/7/' 
 
 ### Response
 
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 404 Not Found
-    Connection: close
+    HTTP/1.1 200 OK
+    Date: Mon, 26 Oct 2020 14:01:19 GMT
+    Server: WSGIServer/0.2 CPython/3.8.5
     Content-Type: application/json
-    Content-Length: 35
+    Vary: Accept
+    Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+    X-Frame-Options: DENY
+    Content-Length: 178
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
 
-    {"status":404,"reason":"Not found"}
 
-## Create another new Thing
+    {"id":7,"tags":["JAVA","C"],"title":"Programming language","description":"xyz","body":"You hav to belive","published":false,"timetoreads":
+    {"id":7,"hours":0,"mins":0,"secs":3}}
+
+
+
+## Publish and unpublish a story
 
 ### Request
 
-`POST /thing/`
+`GET /api/publish/0/` 
+    
+    for filter for all publish 1 and for not publish 0.
 
-    curl -i -H 'Accept: application/json' -d 'name=Bar&junk=rubbish' http://localhost:7000/thing
+    curl -i -X GET -H "Authorization: Token b2487a31410fc0bc4c72c5889124621a140fdbbe" -H "Content-Type: application/x-www-form-urlencoded"  
+    'http://127.0.0.1:8000/api/publish/0/' 
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Mon, 26 Oct 2020 14:36:52 GMT
+    Server: WSGIServer/0.2 CPython/3.8.5
+    Content-Type: application/json
+    Vary: Accept
+    Allow: GET, HEAD, OPTIONS
+    X-Frame-Options: DENY
+    Content-Length: 793
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
+
+    {"count":7,"next":"http://127.0.0.1:8000/api/publish/0/?limit=5&offset=5","previous":null,"results":[
+    {"id":1,"tags":["s","san"],"title":" my name is san","description":"kumar","body":" jfakjf jadksl flja","published":false,"timetoreads":
+    {"id":1,"hours":0,"mins":0,"secs":1}},{"id":2,"tags":[],"title":"dd","description":"d","body":"d","published":false,"timetoreads":
+    {"id":2,"hours":0,"mins":0,"secs":1}},{"id":3,"tags":[],"title":"d","description":"d","body":"d","published":false,"timetoreads":
+    {"id":3,"hours":0,"mins":0,"secs":1}},{"id":4,"tags":[],"title":"d","description":"d","body":"d","published":false,"timetoreads":
+    {"id":4,"hours":0,"mins":0,"secs":1}},{"id":5,"tags":[],"title":"d","description":"d","body":"d","published":false,"timetoreads":
+    {"id":5,"hours":0,"mins":0,"secs":1}}]}
+
+## Find all the words in story body that have spelling mistakes
+
+### Request
+
+`GET /api/spellcheck/id/`
+
+    curl -i -X GET -H "Authorization: Token b2487a31410fc0bc4c72c5889124621a140fdbbe" -H "Content-Type: application/x-www-form-urlencoded"
+    'http://127.0.0.1:8000/api/spellcheck/7/'
 
 ### Response
 
     HTTP/1.1 201 Created
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 201 Created
-    Connection: close
+    Date: Mon, 26 Oct 2020 15:13:22 GMT
+    Server: WSGIServer/0.2 CPython/3.8.5
     Content-Type: application/json
-    Location: /thing/2
-    Content-Length: 35
+    Vary: Accept
+    Allow: GET, HEAD, OPTIONS
+    X-Frame-Options: DENY
+    Content-Length: 38
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
 
-    {"id":2,"name":"Bar","status":null}
+    {"misspelledWords": ["hav", "belive"]}
 
-## Get list of Things again
 
-### Request
-
-`GET /thing/`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 74
-
-    [{"id":1,"name":"Foo","status":"new"},{"id":2,"name":"Bar","status":null}]
-
-## Change a Thing's state
-
-### Request
-
-`PUT /thing/:id/status/changed`
-
-    curl -i -H 'Accept: application/json' -X PUT http://localhost:7000/thing/1/status/changed
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 40
-
-    {"id":1,"name":"Foo","status":"changed"}
-
-## Get changed Thing
-
-### Request
-
-`GET /thing/id`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 40
-
-    {"id":1,"name":"Foo","status":"changed"}
-
-## Change a Thing
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'name=Foo&status=changed2' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed2"}
-
-## Attempt to change a Thing using partial params
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'status=changed3' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed3"}
-
-## Attempt to change a Thing using invalid params
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'id=99&status=changed4' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed4"}
-
-## Change a Thing using the _method hack
-
-### Request
-
-`POST /thing/:id?_method=POST`
-
-    curl -i -H 'Accept: application/json' -X POST -d 'name=Baz&_method=PUT' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Baz","status":"changed4"}
-
-## Change a Thing using the _method hack in the url
-
-### Request
-
-`POST /thing/:id?_method=POST`
-
-    curl -i -H 'Accept: application/json' -X POST -d 'name=Qux' http://localhost:7000/thing/1?_method=PUT
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: text/html;charset=utf-8
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Delete a Thing
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X DELETE http://localhost:7000/thing/1/
-
-### Response
-
-    HTTP/1.1 204 No Content
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 204 No Content
-    Connection: close
-
-
-## Try to delete same Thing again
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X DELETE http://localhost:7000/thing/1/
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Get deleted Thing
-
-### Request
-
-`GET /thing/1`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:33 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Delete a Thing using the _method hack
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X POST -d'_method=DELETE' http://localhost:7000/thing/2/
-
-### Response
-
-    HTTP/1.1 204 No Content
-    Date: Thu, 24 Feb 2011 12:36:33 GMT
-    Status: 204 No Content
-    Connection: close
 
 
