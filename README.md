@@ -1,4 +1,4 @@
-# REST API example application
+# REST API example applications
 
 This is a bare-bones example of a Sinatra application providing a REST
 API to a DataMapper-backed model.
