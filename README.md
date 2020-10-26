@@ -88,6 +88,8 @@ The REST API to the assignment app is described below.
     Location: /api/story/7
     {"id":7, "tags":["JAVA","C"],"title":"Programming language","description":"xyz","body":"You hav to belive"}
 
+** Note: "Time is calculating by Algorithm"
+
 ## GET for UPDATE story
 
 ### Request
