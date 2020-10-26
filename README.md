@@ -185,8 +185,8 @@ The REST API to the assignment app is described below.
 
 ### Response
 
-    HTTP/1.1 201 Created
-    Date: Mon, 26 Oct 2020 15:13:22 GMT
+    HTTP/1.1 200 OK
+    Date: Mon, 26 Oct 2020 15:25:39 GMT
     Server: WSGIServer/0.2 CPython/3.8.5
     Content-Type: application/json
     Vary: Accept
@@ -196,8 +196,5 @@ The REST API to the assignment app is described below.
     X-Content-Type-Options: nosniff
     Referrer-Policy: same-origin
 
+
     {"misspelledWords": ["hav", "belive"]}
-
-
-
-
